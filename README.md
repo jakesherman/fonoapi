@@ -50,7 +50,24 @@ available options
 
 ?>
 ```
+###### Python Demo
 
+```
+	from fonAPI import FonApi
+	
+	fon = FonApi('yourkey')
+	
+	device = 'nokia 3210'
+	
+	phones = fon.getdevice(device)
+	try:
+	    for phone in phones:
+	        print phone['DeviceName']
+	        print phone['weight']
+	        print phone['resolution']
+	except:
+	    print phones
+```
 ###### Result Array Description
 
 **Note** : Use a "_" before key if the key is starting with a number (example : _2g_bands, _4g_bands)
