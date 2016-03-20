@@ -1,6 +1,6 @@
 from fonAPI import FonApi
 
-fon = FonApi('24875e2d23e5583dab960129306139fb60db0c3b6f01144c')
+fon = FonApi('yourKey')
 
 device = '3210'
 phones = fon.getdevice(device)
