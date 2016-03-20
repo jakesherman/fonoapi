@@ -9,17 +9,17 @@ import requests
 
 
 class FonApi:
-    __ApiKey = 'Key'
+
     __ApiUrl = 'https://fonoapi.freshpixl.com/v1/'
 
-    def __init__(self, url=None):
+    def __init__(self, apikey, url=None):
 
         self.__ApiUrl = FonApi.__ApiUrl
 
         if url is not None:
             self.__ApiUrl = url
 
-        self.__ApiKey = FonApi.__ApiKey
+        self.__ApiKey = apikey
 
     def getdevice(self, device, position=None, brand=None):
         """
@@ -36,7 +36,10 @@ class FonApi:
                     'token': self.__ApiKey}
         headers = {'content-type': 'application/json'}
         result = self.sendpostdata(url, postdata, headers)
-        return result.json()
+        try:
+            return result.json()
+        except AttributeError:
+            return result
 
     def sendpostdata(self, url, postdata, headers, result = None):
         """
