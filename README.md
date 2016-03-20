@@ -1,4 +1,4 @@
-# FonoApi - Mobile Device Description Api
+# FonoApi - Mobile Device Description Api asdf
 https://fonoapi.freshpixl.com/
 
 this is an Api which can provide mobile device descriptions such as model, brand, cpu, gpu, dimensions, release date etc...
