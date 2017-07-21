@@ -5,14 +5,10 @@ The Fono API is an API which can provide mobile device descriptions such as mode
 
 The [PHP class used to connect to the API](https://github.com/shakee93/fonoapi) was developed Shakeeb Sadikeen, and the Python package used to communicate with the API was developed by jesusperiago with contributions from Jake Sherman.
 
-## Installation
+### Installation
 
 ```bash
-# Currently:
 pip install git+https://github.com/jakesherman/fonoapi.git
-
-# Eventually:
-pip install fonoapi
 ```
 
 ## Example
@@ -34,20 +30,20 @@ phones = fon.getlatest(brand, limit=10)
 
 ## API
 
-Api Url : https://fonoapi.freshpixl.com/v1/
+API Url : https://fonoapi.freshpixl.com/v1/
 
 ### Method : getdevice (https://fonoapi.freshpixl.com/v1/getdevice)
-available options
-  - brand -
-       pass the Mobile Device Brand (example : "samsung", "htc")
-  - device* -
-       pass nearly relevent mobile device name (example : "i9305", "A8")
-       this might result multiple results at a time.
-  - position -
-       when a set of results is returned you can get a specific device by passing the position of your device on the result set. count starts from 0
-  - token* -
-    - you will need a token to access the Api. no registration, nothing, just grab the key.
-      you can get it here https://fonoapi.freshpixl.com/token/generate
+Available options:
+- brand -
+   pass the Mobile Device Brand (example : "samsung", "htc")
+- device* -
+   pass nearly relevent mobile device name (example : "i9305", "A8")
+   this might result multiple results at a time.
+- position -
+   when a set of results is returned you can get a specific device by passing the position of your device on the result set. count starts from 0
+- token* -
+- you will need a token to access the Api. no registration, nothing, just grab the key.
+  you can get it here https://fonoapi.freshpixl.com/token/generate
 
 
 ### Result Array Description
