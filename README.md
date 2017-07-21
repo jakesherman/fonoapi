@@ -1,19 +1,47 @@
 # FonoApi - Mobile Device Description Api
 https://fonoapi.freshpixl.com/
 
-this is an Api which can provide mobile device descriptions such as model, brand, cpu, gpu, dimensions, release date etc...
+The Fono API is an API which can provide mobile device descriptions such as model, brand, cpu, gpu, dimensions, release date, and more. This Python package provides easy access to the Fono API with the `requests` package.  
 
-this is the php class to communicate with the api. it would be nice if someone can help with other languages though. ;)
+The [PHP class used to connect to the API](https://github.com/shakee93/fonoapi) was developed Shakeeb Sadikeen, and the Python package used to communicate with the API was developed by jesusperiago with contributions from Jake Sherman.
 
-### Api
+## Installation
+
+```bash
+# Currently:
+pip install git+https://github.com/jakesherman/fonoapi.git
+
+# Eventually:
+pip install fonoapi
+```
+
+## Example
+
+```python
+from fonoapi import FonoAPI
+
+# Use your API token to create the FonoAPI object
+fon = FonoAPI('TOKEN')
+
+# Grab device data on the Nokia 3210
+device = 'nokia 3210'
+phones = fon.getdevice(device)
+
+# Grab the 10 most recent devices by Nokia
+brand = 'Nokia'
+phones = fon.getlatest(brand, limit=10)
+```
+
+## API
+
 Api Url : https://fonoapi.freshpixl.com/v1/
 
-###### Method : getdevice (https://fonoapi.freshpixl.com/v1/getdevice)
+### Method : getdevice (https://fonoapi.freshpixl.com/v1/getdevice)
 available options
-  - brand - 
+  - brand -
        pass the Mobile Device Brand (example : "samsung", "htc")
-  - device* - 
-       pass nearly relevent mobile device name (example : "i9305", "A8") 
+  - device* -
+       pass nearly relevent mobile device name (example : "i9305", "A8")
        this might result multiple results at a time.
   - position -
        when a set of results is returned you can get a specific device by passing the position of your device on the result set. count starts from 0
@@ -21,54 +49,8 @@ available options
     - you will need a token to access the Api. no registration, nothing, just grab the key.
       you can get it here https://fonoapi.freshpixl.com/token/generate
 
-###### PHP Demo
 
-```
-<?php
-
-	include_once("fonoapi-v1.php");
-
-	$apiKey = "xxxxxxxx"; // get your token key here - https://fonoapi.freshpixl.com
-	$fonoapi = fonoApi::init($apiKey);
-	
-		try {
-
-			$res = $fonoapi::getDevice("i9305"); // the device you need to get details here
-
-			foreach ($res as $mobile) {
-				if (!empty($mobile->DeviceName)) 	echo "Device : ". $mobile->DeviceName . "<br>";
-				if (!empty($mobile->Brand)) 		echo "Brand : ". $mobile->Brand . "<br>";
-				if (!empty($mobile->cpu)) 			echo "Cpu : " . $mobile->cpu . "<br>";
-				if (!empty($mobile->status)) 		echo "Status : " . $mobile->status . "<br>";
-				if (!empty($mobile->dimensions)) 	echo "Dimensions : " . $mobile->dimensions . "<br>";
-				if (!empty($mobile->_4g_bands)) 	echo "4g : " .$mobile->_4g_bands . "<br>";
-			}
-
-		} catch (Exception $e) {
-			echo "ERROR : " . $e->getMessage();
-		}
-
-?>
-```
-###### Python Demo
-
-```
-	from fonAPI import FonApi
-	
-	fon = FonApi('yourkey')
-	
-	device = 'nokia 3210'
-	
-	phones = fon.getdevice(device)
-	try:
-	    for phone in phones:
-	        print phone['DeviceName']
-	        print phone['weight']
-	        print phone['resolution']
-	except:
-	    print phones
-```
-###### Result Array Description
+### Result Array Description
 
 **Note** : Use a "_" before key if the key is starting with a number (example : _2g_bands, _4g_bands)
 
@@ -137,4 +119,3 @@ available options
 - display
 - battery_life
 - 4g_bands
-
