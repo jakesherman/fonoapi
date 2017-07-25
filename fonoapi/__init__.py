@@ -1,9 +1,16 @@
-from fonoapi import FonoAPI
+from fonoapi import (
+    FonoAPI,
+    InvalidAPITokenException,
+    NoAPIResultsException,
+    Phones,
+    StatusCodeError200Exception,
+    StatusCodeErrorNon200Exception
+)
 
 
 __all__ = (
-    "__title__", "__summary__", "__uri__", "__version__", "__author__",
-    "__email__", "__license__", "__copyright__",
+    '__title__', '__summary__', '__uri__', '__version__', '__author__',
+    '__email__', '__license__', '__copyright__',
 )
 
 
@@ -25,4 +32,4 @@ __uri__ = 'https://github.com/jakesherman/fonoapi'
 __author__ = 'shakee93, jesusperiago, jakesherman'
 __email__ = 'jake@jakesherman.com'
 __license__ = 'MIT License'
-__copyright__ = '2016, 2017 shakee93, jesusperiago, jakesherman'
+__copyright__ = '2016-2017 shakee93, jesusperiago, jakesherman'

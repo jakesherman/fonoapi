@@ -15,6 +15,11 @@ except:
         long_description = f.read()
 
 
+from pip.req import parse_requirements
+install_requires = [str(ir.req) for ir in parse_requirements(
+    path.join(here, 'requirements.txt'), session=False)]
+
+
 setup(
     name=fonoapi.__title__,
     version=fonoapi.__version__,
@@ -24,5 +29,6 @@ setup(
     url=fonoapi.__uri__,
     author=fonoapi.__author__,
     author_email=fonoapi.__email__,
-    packages=['fonoapi']
+    packages=['fonoapi'],
+    install_requires=install_requires
 )
