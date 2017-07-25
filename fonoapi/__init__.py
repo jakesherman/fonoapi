@@ -1,8 +1,8 @@
 from fonoapi import (
+    Devices,
     FonoAPI,
     InvalidAPITokenException,
     NoAPIResultsException,
-    Phones,
     StatusCodeError200Exception,
     StatusCodeErrorNon200Exception
 )

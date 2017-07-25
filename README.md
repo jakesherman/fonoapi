@@ -1,8 +1,10 @@
-# fonoapi - Python wrapper for FonoApi, providing mobile device descriptions
+# fonoapi - Python wrapper around the FonoApi
 
 https://fonoapi.freshpixl.com/
 
-The Fono API is an API which can provide mobile device descriptions such as model, brand, cpu, gpu, dimensions, release date, and more. This Python package provides easy access to the Fono API with the `requests` package.  
+The Fono API is an API which can provide **mobile device descriptions** such as model, brand, cpu, gpu, dimensions, release date, and more. This package package provides a convenient wrapper around the Fono Api via the `requests` package.
+
+The [API](https://github.com/shakee93/fonoapi) was developed [shakee93](https://github.com/shakee93). This package started off as a fork of a [package](https://github.com/jesusperiago/fonoapi) written by [jesusperiago](https://github.com/jesusperiago) - I added the `getlatest` method to take advantage of the [getlatest API method](https://fonoapi.freshpixl.com/v1/getlatest), and make a lot of under-the-hood organizational changes in order to submit this package to `PyPI` to make it more easily available.
 
 ### Installation
 
@@ -12,17 +14,18 @@ pip install git+https://github.com/jakesherman/fonoapi.git
 
 ## Tutorial
 
-Before starting, make sure to install this package (see above) and [generate an API token](https://fonoapi.freshpixl.com/token/generate#). We are going to start by creating a `FonoAPI` object, which we pass our API token to  order to start interacting with the Fono Api.
+Before starting, make sure to [generate an API token](https://fonoapi.freshpixl.com/token/generate#). We are going to start by creating a `FonoAPI` object, which we initialize with our API token in order to start interacting with the FonoApi:
 
 ```python
 from __future__ import print_function  # -- for Python 2.7
+
 from fonoapi import FonoAPI
 fon = FonoAPI('TOKEN')
 ```
 
 ### Getting devices matching a specific device name
 
-Now, let's imagine that we have a specific mobile device in mind, say, the **iPhone 7**, and we are interested in learning more about this device. We can use the `getdevice` method to call the Fono Api
+We have a specific device in mind, the **iPhone 7**, what we wish to learn more about. We can use the `getdevice` method to return information from the API about a specific device:
 
 ```python
 device = 'iPhone 7'
@@ -30,70 +33,37 @@ iPhone_7 = fon.getdevice(device)
 print(iPhone_7)
 ```
 
-    | Phones Object: mobile device data|
+    | Devices Object: mobile device data|
     ------------------------------------
-    Number of phones : 4
+    Number of devices : 4
     Input parameters : {'device': 'iPhone 7', 'position': None, 'brand': None}
 
-The `getdevice` method returns a `Phones` object, an object that makes it easy to retrieve data from the Fono Api. Printing out the object gives us information on how many phones we retrieved information for, and what the parameters were to `getdevice` that created the `Phones` object.
+The `getdevice` method returns a `Devices` object, an object that makes it easy to retrieve data from the Fono Api. Printing out the object gives us information on how many devices we retrieved information for, and what the parameters were given to `getdevice`.
 
-We can output the data in the `Phones` object in three ways:
-- As a list of dictionaries via the `list_of_dicts` method, with one dictionary per phone
-- As a list of lists via the `list_of_lists` method, where each sublist corresponds to a particular phone
-- As a Pandas DataFrame via the `dataframe` method, where each row corresponds to a particular phone
+We can output the data in the `Devices` object in three ways by calling the following methods on the `Devices` object:
+- `dataframe` : As a Pandas DataFrame, where each row corresponds to a phone
+- `list_of_dicts` : As a list of dictionaries, with one dict per phone
+- `list_of_lists : `As a list of lists, where each sublist corresponds to a phone
 
-Not all mobile phones in the Fono Api have every attribute associated with them (suppose some phones had CPU information associated with them, and some didn't). In the case of `list_of_dicts`, only the attributes associated with each phone is included in each phone's dictionary. In the cases of `list_of_lists` or `dataframe`, you may choose specific columns to include for every phone. In this case, devices with no value for a particular column will have values of `None` or `numpy.nan`, respectively.
+Not all mobile devices in the FonoApi have every possible attribute associated with them. In the case of `list_of_dicts`, only the attributes associated with each phone is included in each phone's dictionary. In the cases of `dataframe` or `list_of_lists`, you may choose specific columns to include for every phone. In this case, devices with no value for a particular column will have values of `numpy.nan` or `None`, respectively.
 
-In our case, let's look at the attributes `Brand, DeviceName, body_c` for the phones returned by our API call:
+In our case, let's look at the attributes `Brand, DeviceName, body_c` for the devices returned by our API call:
 
 ```python
 print(iPhone_7.dataframe(['Brand', 'DeviceName', 'body_c']))
 ```
 
-<div>
-<table border="1">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Brand</th>
-      <th>DeviceName</th>
-      <th>body_c</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Prestigio</td>
-      <td>Prestigio MultiPhone 7500</td>
-      <td>None</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>Prestigio</td>
-      <td>Prestigio MultiPhone 7600 Duo</td>
-      <td>None</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Apple</td>
-      <td>Apple iPhone 7 Plus</td>
-      <td>- IP67 certified - dust and water resistant\r\...</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>Apple</td>
-      <td>Apple iPhone 7</td>
-      <td>- IP67 certified - dust and water resistant\r\...</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+Brand | DeviceName | body_c |
+| --- | --- | --- | --- |
+| 0 | Prestigio | Prestigio MultiPhone 7500 | None |
+| 1 | Prestigio | Prestigio MultiPhone 7600 Duo | None |
+| 2 | Apple | Apple iPhone 7 Plus | - IP67 certified - dust and water resistant\r\... |
+| 3 | Apple | Apple iPhone 7 | - IP67 certified - dust and water resistant\r\... |
 
-Two interesting things come up:
-- There are two non-Apple phones by Prestigio in the list! The model names of the two phones begin with Prestigio Mult**iPhone 7**500, so it's understandable that they would show up if we searched for the string 'iPhone 7'
-- The two Prestigio phones don't have a value for the `body_c` attribute, so they have `np.nan` values for that column
+- There are two non-Apple devices by Prestigio in the list! The model names of the two devices begin with Prestigio Mult*iPhone 7*500, so it's understandable that they would show up when we searched for the string 'iPhone 7'
+- The two Prestigio devices don't have a value for the `body_c` attribute, so they have `np.nan` values for that column
 
-In order to get rid of the Prestigio phones in our results, all we have to do is specify the `brand` argument to the `getdevice` method
+In order to get rid of the Prestigio devices in our results, all we have to do is specify the `brand` argument to the `getdevice` method:
 
 ```python
 device, brand = 'iPhone 7', 'Apple'
@@ -101,36 +71,14 @@ iPhone_7 = fon.getdevice(device, brand)
 print(iPhone_7.dataframe(['Brand', 'DeviceName', 'body_c']))
 ```
 
-<div>
-<table border="1">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Brand</th>
-      <th>DeviceName</th>
-      <th>body_c</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Apple</td>
-      <td>Apple iPhone 7 Plus</td>
-      <td>- IP67 certified - dust and water resistant\r\...</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>Apple</td>
-      <td>Apple iPhone 7</td>
-      <td>- IP67 certified - dust and water resistant\r\...</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+Brand | DeviceName | body_c |
+| --- | --- | --- | --- |
+| 0 | Apple | Apple iPhone 7 Plus | - IP67 certified - dust and water resistant\r\... |
+| 1 | Apple | Apple iPhone 7 | - IP67 certified - dust and water resistant\r\... |
 
 ### Getting the latest devices for a specific brand
 
-`getlatest` will return information about the most recent phones for a given brand. For example, let's imagine that we wish to get data on the last 5 mobile devices from Apple.
+`getlatest` will return information about the most recent devices for a given brand. For example, let's imagine that we wish to get data on the lastest mobile devices from Apple:
 
 ```python
 brand = 'Apple'
@@ -142,57 +90,62 @@ latest_apples = (
 print(latest_apples)
 ```
 
-<div>
-<table border="1">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>DeviceName</th>
-      <th>announced</th>
-      <th>_3_5mm_jack_</th>
-      <th>talk_time</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Apple iPad Pro 12.9</td>
-      <td>2017, June</td>
-      <td>Yes</td>
-      <td>Up to 10 h (multimedia)</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>Apple iPad Pro 10.5</td>
-      <td>2017, June</td>
-      <td>Yes</td>
-      <td>Up to 10 h (multimedia)</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Apple iPad 9.7</td>
-      <td>2017, March</td>
-      <td>Yes</td>
-      <td>Up to 10 h (multimedia)</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>Apple iPhone 8</td>
-      <td>Not announced yet</td>
-      <td>No</td>
-      <td>None</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>Apple Watch Series 1 Sport 42mm</td>
-      <td>2016, September</td>
-      <td>No</td>
-      <td>Up to 3 h 40 min</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+DeviceName | announced | _3_5mm_jack_ | talk_time |
+| --- | --- | --- | --- | --- |
+| 0 | Apple iPad Pro 12.9 | 2017, June | Yes | Up to 10 h (multimedia) |
+| 1 | Apple iPad Pro 10.5 | 2017, June | Yes | Up to 10 h (multimedia) |
+| 2 | Apple iPad 9.7 | 2017, March | Yes | Up to 10 h (multimedia) |
+| 3 | Apple iPhone 8 | Not announced yet | No | None |
+| 4 | Apple Watch Series 1 Sport 42mm | 2016, September | No | Up to 3 h 40 min |
 
+Finally, perhaps we want to retrieve data on the most recent mobile devices for a whole host of brands ... but we're not sure if we spelled the brand names correctly. By default, when `getlatest` (or `getdevice`) don't retrieve any results from the API, they return an empty `Devices` object. That empty `Devices` object has a value of `True` for its `null` class attribute (and a value of `False` for its `not_null` class attribute). For example:
+
+```python
+brands = ['Apple', 'Samsung', 'LG', 'Huawei', 'SonyEricsson']
+brand_devices = []
+for brand in brands:
+    devices = fon.getlatest(brand, limit=3)
+    brand_devices.append(devices)
+```
+
+    Could not retrieve brand information for brand SonyEricsson from the Fono API.
+
+
+```python
+# Print out the Devices object for SonyEricsson
+print(brand_devices[-1])
+```
+
+    | Devices Object: mobile device data|
+    ------------------------------------
+    Number of devices : 0
+    Input parameters : {'brand': 'SonyEricsson', 'limit': 3}
+
+The problem here is that there is no brand SonyEricsson in the API, the correct name would have been just Ericsson. Let's say that we want to take all of the device information that we stored in `brand_devices`, a list of `Devices` object, and create a single Pandas DataFrame:
+
+```python
+import pandas as pd
+columns = ['Brand', 'DeviceName', 'announced', 'talk_time']
+brand_devices = [devices.dataframe(columns) for devices
+                 in brand_devices if devices.not_null]
+all_brands = pd.concat(brand_devices)
+print(all_brands)
+```
+
+Brand | DeviceName | announced | talk_time |
+| --- | --- | --- | --- | --- |
+| 0 | Apple | Apple iPad Pro 12.9 | 2017, June | Up to 10 h (multimedia) |
+| 1 | Apple | Apple iPad Pro 10.5 | 2017, June | Up to 10 h (multimedia) |
+| 2 | Apple | Apple iPad 9.7 | 2017, March | Up to 10 h (multimedia) |
+| 0 | Samsung | Samsung Galaxy Tab A 8.0 (2017) | Not announced yet | NaN |
+| 1 | Samsung | Samsung Galaxy C10 | Not announced yet | NaN |
+| 2 | Samsung | Samsung Galaxy J5 (2017) | 2017, June | Up to 21 h (3G) |
+| 0 | LG | LG V30 | Not announced yet | NaN |
+| 1 | LG | LG X venture | 2017, May | Up to 24 h (3G) |
+| 2 | LG | LG Stylo 3 Plus | 2017, May | Up to 14 h (3G) |
+| 0 | Huawei | Huawei MediaPad M3 Lite 8 | 2017, June | NaN |
+| 1 | Huawei | Huawei Honor 9 | 2017, June | NaN |
+| 2 | Huawei | Huawei nova 2 plus | 2017, May | NaN |
 
 ## Tests
 
@@ -201,7 +154,3 @@ Pass a valid API token to `py.test` to run the package's unit tests.
 ```bash
 py.test --apitoken <TOKEN>
 ```
-
-## Credit
-
-The [PHP class used to connect to the API](https://github.com/shakee93/fonoapi) was developed Shakeeb Sadikeen. I forked a Python package that jesusperiago created, adding the `getlatest` method, and making other changes to organize this code into a package that could become available on `PyPI`.

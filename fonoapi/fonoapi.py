@@ -41,15 +41,15 @@ class NoAPIResultsException(Exception):
 
 
 ################################################################################
-# Phones class - the FonoAPI class outputs objects of this class
+# Devices class - the FonoAPI class outputs objects of this class
 ################################################################################
 
 
-class Phones(object):
-    """Phones - takes a list of dictionaries, where each element in the list is
+class Devices(object):
+    """Devices - takes a list of dictionaries, where each element in the list is
     a particular mobile phone, and each key/vaue pair in each dictionary is an
     attribute and value about the phone, and creates an object that makes it
-    easy to extract information about the mobile phones.
+    easy to extract information about the mobile devices.
     """
 
 
@@ -128,12 +128,12 @@ class Phones(object):
     ]
 
 
-    def __init__(self, phones, **kwargs):
-        """Initialize the Phones object.
+    def __init__(self, devices, **kwargs):
+        """Initialize the Devices object.
 
         Parameters
         ----------
-        phones : list of dictionaries
+        devices : list of dictionaries
             The list of dictionaries where each dictionary corresponds to a
             mobile phone, and the dictionary contains phone attributes. An empty
             list corresponds to no resuls returned from the API.
@@ -141,32 +141,32 @@ class Phones(object):
         kwargs : Dict (optional)
             A dict of keyword arguments to the .getdevice or .getlatest methods.
             Does not serve an explicit purpose, but can be useful when looking
-            at Phones objects who are null, and determining what keyword
+            at Devices objects who are null, and determining what keyword
             arguments were passed to .getdevice or .getlatest that resulted in a
             null object. See the kwargs by using the input_parameters class
             attribute.
 
         Returns
         -------
-        self : Phones object
+        self : Devices object
             Return self
         """
-        assert isinstance(phones, list)
+        assert isinstance(devices, list)
 
-        # If phones is an empty list, set self.not_null/null appropriately
-        if phones:
-            assert all([isinstance(obj, dict) for obj in phones])
+        # If devices is an empty list, set self.not_null/null appropriately
+        if devices:
+            assert all([isinstance(obj, dict) for obj in devices])
             self.not_null, self.null = True, False
         else:
             self.not_null, self.null = False, True
-        self.input_parameters, self.phones = kwargs, phones
+        self.input_parameters, self.devices = kwargs, devices
 
 
     def keys_union(self):
         """Get the union of the sets of keys in each dictionary that is part of
-        the self.phones list of dictionaries.
+        the self.devices list of dictionaries.
         """
-        list_of_keys = [dict_.keys() for dict_ in self.phones]
+        list_of_keys = [dict_.keys() for dict_ in self.devices]
         columns = reduce(lambda x, y: set(x).union(set(y)), list_of_keys)
         return sorted(columns)
 
@@ -178,10 +178,10 @@ class Phones(object):
         Returns
         -------
         lod - a list of dictionaries, where elements in the list corresponds to
-            mobile phones, and key/value pairs in the dictionaries correspond to
-            attributes about those phones.
+            mobile devices, and key/value pairs in the dictionaries correspond
+            to attributes about those devices.
         """
-        return self.phones
+        return self.devices
 
 
     def list_of_lists(self, columns=None):
@@ -203,11 +203,11 @@ class Phones(object):
         lol - a list of lists, where each sublist is basically a row
         """
         if self.null:
-            return self.phones, []
+            return self.devices, []
         if columns is None:
             columns = self._all_attributes
         rows = []
-        for phone in self.phones:
+        for phone in self.devices:
             row = []
             for column in columns:
                 row.append(phone.get(column))
@@ -233,15 +233,15 @@ class Phones(object):
         df - a Pandas DataFrame
         """
         if self.null:
-            pd.DataFrame(self.phones)
+            pd.DataFrame(self.devices)
         rows, columns = self.list_of_lists(columns=columns)
         return pd.DataFrame(rows, columns=columns).fillna(value=np.nan)
 
 
     def __str__(self):
-        string = '| Phones Object: mobile device data|'
+        string = '| Devices Object: mobile device data|'
         string += '\n------------------------------------'
-        string += '\nNumber of phones : {}'.format(str(len(self.phones)))
+        string += '\nNumber of devices : {}'.format(str(len(self.devices)))
         string += '\nInput parameters : {}'.format(str(self.input_parameters))
         return string
 
@@ -256,7 +256,7 @@ class Phones(object):
 
 class FonoAPI(object):
     """FonoApi - class for accessing Freshpixl's Fono API. The Fono API provides
-    device attributes for mobile phones. Example attributes include model,
+    device attributes for mobile devices. Example attributes include model,
     brand, CPU info, GPU info, release date, and more. Learn more at
     https://fonoapi.freshpixl.com/.
     """
@@ -315,7 +315,7 @@ class FonoAPI(object):
 
         Returns
         -------
-        phones : Phones object
+        devices : Devices object
             API results
         """
         assert isinstance(device, str)
@@ -333,12 +333,12 @@ class FonoAPI(object):
         }
         result = self.process_request(url, postdata, headers,
                                       no_results_exception)
-        phones = Phones(result, device=device, position=position, brand=brand)
+        devices = Devices(result, device=device, position=position, brand=brand)
         if verbose:
-            if phones.null:
+            if devices.null:
                 print(('Could not retrieve device information for device'
                        ' {} from the Fono API').format(device))
-        return phones
+        return devices
 
 
     def getlatest(self, brand, limit=100, no_results_exception=False,
@@ -367,7 +367,7 @@ class FonoAPI(object):
 
         Returns
         -------
-        phones : Phones object
+        devices : Devices object
             API results
         """
         assert isinstance(brand, str)
@@ -383,12 +383,12 @@ class FonoAPI(object):
         }
         result = self.process_request(url, postdata, headers,
                                       no_results_exception)
-        phones = Phones(result, brand=brand, limit=limit)
+        devices = Devices(result, brand=brand, limit=limit)
         if verbose:
-            if phones.null:
+            if devices.null:
                 print(('Could not retrieve brand information for brand'
                        ' {} from the Fono API.').format(brand))
-        return phones
+        return devices
 
 
     @staticmethod
