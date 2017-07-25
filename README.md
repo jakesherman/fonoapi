@@ -67,8 +67,12 @@ In order to get rid of the Prestigio devices in our results, all we have to do i
 
 ```python
 device, brand = 'iPhone 7', 'Apple'
-iPhone_7 = fon.getdevice(device, brand)
-print(iPhone_7.dataframe(['Brand', 'DeviceName', 'body_c']))
+iPhone_7 = (
+    fon
+    .getdevice(device, brand)
+    .dataframe(['Brand', 'DeviceName', 'body_c'])
+)
+print(iPhone_7)
 ```
 
 Brand   | DeviceName          | body_c |

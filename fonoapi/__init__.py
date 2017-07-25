@@ -27,7 +27,7 @@ exec(__get_version())
 
 # Included in setup.py
 __title__ = 'fonoapi'
-__summary__ = "Access Freshpixl's Fono API to gain insight into mobile phones"
+__summary__ = "Access Freshpixl's Fono Api to gain insight into mobile phones"
 __uri__ = 'https://github.com/jakesherman/fonoapi'
 __author__ = 'shakee93, jesusperiago, jakesherman'
 __email__ = 'jake@jakesherman.com'
