@@ -9,7 +9,7 @@ The [API](https://github.com/shakee93/fonoapi) was developed [shakee93](https://
 ### Installation
 
 ```bash
-pip install git+https://github.com/jakesherman/fonoapi.git
+pip install fonoapi
 ```
 
 ## Tutorial

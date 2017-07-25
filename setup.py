@@ -6,7 +6,7 @@ here = path.abspath(path.dirname(__file__))
 
 
 # Create a long description
-# Borrowed code here from: https://github.com/kdheepak/fono
+# Copied code here from: https://github.com/kdheepak/fono
 try:
     import pypandoc
     long_description = pypandoc.convert('README.md', 'rst')

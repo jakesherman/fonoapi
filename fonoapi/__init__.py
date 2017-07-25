@@ -15,7 +15,7 @@ __all__ = (
 
 
 def __get_version():
-    """Borrowed from Borrowed code here from: https://github.com/kdheepak/fono
+    """Copied from: https://github.com/kdheepak/fono
     """
     from os import path
     here = path.abspath(path.dirname(__file__))
