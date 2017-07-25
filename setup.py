@@ -1,6 +1,5 @@
 from os import path
 from setuptools import setup
-import fonoapi
 
 here = path.abspath(path.dirname(__file__))
 
@@ -20,18 +19,28 @@ install_requires = [str(ir.req) for ir in parse_requirements(
     path.join(here, 'requirements.txt'), session=False)]
 
 
+__title__ = 'fonoapi'
+__summary__ = "Access Freshpixl's Fono Api to gain insight into mobile phones"
+__uri__ = 'https://github.com/jakesherman/fonoapi'
+__author__ = 'shakee93, jesusperiago, jakesherman'
+__email__ = 'jake@jakesherman.com'
+__license__ = 'MIT License'
+__copyright__ = '2016-2017 shakee93, jesusperiago, jakesherman'
+__version__ = '0.1.2'
+
+
 setup(
-    name=fonoapi.__title__,
-    version=fonoapi.__version__,
-    description=fonoapi.__summary__,
+    name=__title__,
+    version=__version__,
+    description=__summary__,
     long_description=long_description,
-    license=fonoapi.__license__,
-    url=fonoapi.__uri__,
-    author=fonoapi.__author__,
-    author_email=fonoapi.__email__,
+    license=__license__,
+    url=__uri__,
+    author=__author__,
+    author_email=__email__,
     packages=['fonoapi'],
     install_requires=install_requires,
     download_url='{}/archive/v{}.tar.gz'.format(
-        fonoapi.__uri__, fonoapi.__version__),
+        __uri__, __version__),
     keywords=['api', 'mobile', 'phone', 'FonoApi']
 )
