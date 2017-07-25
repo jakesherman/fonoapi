@@ -1,4 +1,5 @@
-# FonoApi - Mobile Device Description Api
+# fonoapi - Python wrapper for FonoApi, providing mobile device descriptions
+
 https://fonoapi.freshpixl.com/
 
 The Fono API is an API which can provide mobile device descriptions such as model, brand, cpu, gpu, dimensions, release date, and more. This Python package provides easy access to the Fono API with the `requests` package.  
@@ -11,13 +12,15 @@ pip install git+https://github.com/jakesherman/fonoapi.git
 
 ## Tutorial
 
-Before starting, make sure to install this package (see above) and [generate an API token](https://fonoapi.freshpixl.com/token/generate#). We are going to start by creating a `FonoAPI` object, which we pass our API token in order to start interacting with the Fono Api.
+Before starting, make sure to install this package (see above) and [generate an API token](https://fonoapi.freshpixl.com/token/generate#). We are going to start by creating a `FonoAPI` object, which we pass our API token to  order to start interacting with the Fono Api.
 
 ```python
 from __future__ import print_function  # -- for Python 2.7
 from fonoapi import FonoAPI
 fon = FonoAPI('TOKEN')
 ```
+
+### Getting devices matching a specific device name
 
 Now, let's imagine that we have a specific mobile device in mind, say, the **iPhone 7**, and we are interested in learning more about this device. We can use the `getdevice` method to call the Fono Api
 
@@ -27,12 +30,10 @@ iPhone_7 = fon.getdevice(device)
 print(iPhone_7)
 ```
 
-```
->> | Phones Object: mobile device data|
->> ------------------------------------
->> Number of phones : 4
->> Input parameters : {'device': 'iPhone 7', 'position': None, 'brand': None}
-```
+    | Phones Object: mobile device data|
+    ------------------------------------
+    Number of phones : 4
+    Input parameters : {'device': 'iPhone 7', 'position': None, 'brand': None}
 
 The `getdevice` method returns a `Phones` object, an object that makes it easy to retrieve data from the Fono Api. Printing out the object gives us information on how many phones we retrieved information for, and what the parameters were to `getdevice` that created the `Phones` object.
 
@@ -50,20 +51,7 @@ print(iPhone_7.dataframe(['Brand', 'DeviceName', 'body_c']))
 ```
 
 <div>
-<style>
-    .dataframe thead tr:only-child th {
-        text-align: right;
-    }
-
-    .dataframe thead th {
-        text-align: left;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-</style>
-<table border="1" class="dataframe">
+<table border="1">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -114,20 +102,7 @@ print(iPhone_7.dataframe(['Brand', 'DeviceName', 'body_c']))
 ```
 
 <div>
-<style>
-    .dataframe thead tr:only-child th {
-        text-align: right;
-    }
-
-    .dataframe thead th {
-        text-align: left;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-</style>
-<table border="1" class="dataframe">
+<table border="1">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -152,6 +127,72 @@ print(iPhone_7.dataframe(['Brand', 'DeviceName', 'body_c']))
   </tbody>
 </table>
 </div>
+
+### Getting the latest devices for a specific brand
+
+`getlatest` will return information about the most recent phones for a given brand. For example, let's imagine that we wish to get data on the last 5 mobile devices from Apple.
+
+```python
+brand = 'Apple'
+latest_apples = (
+    fon
+    .getlatest(brand, limit=5)
+    .dataframe(['DeviceName', 'announced', '_3_5mm_jack_', 'talk_time'])
+)
+print(latest_apples)
+```
+
+<div>
+<table border="1">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>DeviceName</th>
+      <th>announced</th>
+      <th>_3_5mm_jack_</th>
+      <th>talk_time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Apple iPad Pro 12.9</td>
+      <td>2017, June</td>
+      <td>Yes</td>
+      <td>Up to 10 h (multimedia)</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Apple iPad Pro 10.5</td>
+      <td>2017, June</td>
+      <td>Yes</td>
+      <td>Up to 10 h (multimedia)</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Apple iPad 9.7</td>
+      <td>2017, March</td>
+      <td>Yes</td>
+      <td>Up to 10 h (multimedia)</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Apple iPhone 8</td>
+      <td>Not announced yet</td>
+      <td>No</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Apple Watch Series 1 Sport 42mm</td>
+      <td>2016, September</td>
+      <td>No</td>
+      <td>Up to 3 h 40 min</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
 
 ## Tests
 
