@@ -31,7 +31,7 @@ setup(
     author_email=fonoapi.__email__,
     packages=['fonoapi'],
     install_requires=install_requires,
-    download_url='{}/archive/{}.tar.gz'.format(
+    download_url='{}/archive/v{}.tar.gz'.format(
         fonoapi.__uri__, fonoapi.__version__),
     keywords=['api', 'mobile', 'phone', 'FonoApi']
 )
