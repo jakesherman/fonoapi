@@ -72,7 +72,7 @@ print(iPhone_7.dataframe(['Brand', 'DeviceName', 'body_c']))
 ```
 
 Brand   | DeviceName          | body_c |
-| ---   | ---                 | --- | --- |
+| ---   | --- | --- |
 | Apple | Apple iPhone 7 Plus | - IP67 certified - dust and water resistant\r\... |
 | Apple | Apple iPhone 7      | - IP67 certified - dust and water resistant\r\... |
 
@@ -91,7 +91,7 @@ print(latest_apples)
 ```
 
 DeviceName                        | announced | _3_5mm_jack_ | talk_time |
-| ---                             | --- | --- | --- | --- |
+| --- | --- | --- | --- |
 | Apple iPad Pro 12.9             | 2017, June | Yes | Up to 10 h (multimedia) |
 | Apple iPad Pro 10.5             | 2017, June | Yes | Up to 10 h (multimedia) |
 | Apple iPad 9.7                  | 2017, March | Yes | Up to 10 h (multimedia) |
@@ -133,7 +133,7 @@ print(all_brands)
 ```
 
 Brand     | DeviceName | announced | talk_time |
-| ---     | --- | --- | --- | --- |
+| --- | --- | --- | --- |
 | Apple   | Apple iPad Pro 12.9 | 2017, June | Up to 10 h (multimedia) |
 | Apple   | Apple iPad Pro 10.5 | 2017, June | Up to 10 h (multimedia) |
 | Apple   | Apple iPad 9.7 | 2017, March | Up to 10 h (multimedia) |
