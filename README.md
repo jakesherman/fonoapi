@@ -17,8 +17,6 @@ pip install fonoapi
 Before starting, make sure to [generate an API token](https://fonoapi.freshpixl.com/token/generate#). We are going to start by creating a `FonoAPI` object, which we initialize with our API token in order to start interacting with the Fono Api:
 
 ```python
-from __future__ import print_function  # -- for Python 2.7
-
 from fonoapi import FonoAPI
 fon = FonoAPI('TOKEN')
 ```

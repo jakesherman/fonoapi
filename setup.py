@@ -38,6 +38,7 @@ setup(
     version=__version__,
     description=__summary__,
     long_description=long_description,
+    long_description_content_type='text/markdown',
     license=__license__,
     url=__uri__,
     author=__author__,
