@@ -1,3 +1,5 @@
+# coding=utf-8
+
 """test_fonoapi.py - general tests of the fonoapi package.
 """
 
@@ -71,55 +73,55 @@ def expected_result1():
     method1, method1_kwargs = 'getdevice', {'device':'LG Stylo 3 Plus'}
     method2, method2_kwargs = 'list_of_dicts', {}
     output = [{
-        u'Brand': u'LG',
         u'DeviceName': u'LG Stylo 3 Plus',
+        u'Brand': u'LG',
+        u'technology': u'GSM / HSPA / LTE',
+        u'gprs': u'Yes',
+        u'edge': u'Yes',
+        u'announced': u'2017, May',
+        u'status': u'Available. Released 2017, May',
+        u'dimensions': u'155.7 x 79.8 x 7.4 mm (6.13 x 3.14 x 0.29 in)',
+        u'weight': u'150 g (5.29 oz)',
+        u'sim': u'Nano-SIM',
+        u'type': u'IPS LCD capacitive touchscreen, 16M colors',
+        u'size': u'5.7 inches, 89.6 cm2 (~72.1% screen-to-body ratio)',
+        u'resolution': u'1080 x 1920 pixels, 16:9 ratio (~386 ppi density)',
+        u'card_slot': u'microSD, up to 256 GB',
+        u'alert_types': u'Vibration; MP3, WAV ringtones',
+        u'loudspeaker_': u'Yes',
+        u'wlan': u'Wi-Fi 802.11 b/g/n, WiFi Direct, hotspot',
+        u'bluetooth': u'4.2, A2DP, LE',
+        u'gps': u'Yes, with A-GPS',
+        u'radio': u'To be confirmed',
+        u'usb': u'microUSB 2.0',
+        u'messaging': u'SMS(threaded view), MMS, Email, Push Mail, IM',
+        u'browser': u'HTML5',
+        u'java': u'No',
+        u'features_c': u'- MP4/H.264 player\r\n  - MP3/WAV/eAAC+ player\r\n  - Photo/video editor\r\n  - Document viewer',
+        u'battery_c': u'Li-Ion 3080 mAh battery',
+        u'stand_by': u'Up to 456 h (3G)',
+        u'talk_time': u'Up to 14 h (3G)',
+        u'colors': u'Titan',
+        u'sensors': u'Fingerprint (rear-mounted), accelerometer, gyro, proximity, compass',
+        u'cpu': u'Octa-core 1.4 GHz Cortex-A53',
+        u'internal': u'32 GB, 2 GB RAM',
+        u'os': u'Android 7.0 (Nougat)',
+        u'body_c': u'- Stylus',
+        u'primary_': u'13 MP (1/3", 1.12 Âµm), autofocus, LED flash',
+        u'video': u'1080p@30fps',
+        u'secondary': u'5 MP, LED flash',
+        u'speed': u'HSPA 42.2/5.76 Mbps, LTE-A (2CA) Cat6 300/50 Mbps',
+        u'chipset': u'Qualcomm MSM8940 Snapdragon 435',
+        u'features': u'Geo-tagging, touch focus, face detection',
+        u'gpu': u'Adreno 505',
+        u'multitouch': u'Yes',
+        u'nfc': u'Yes',
+        u'price': u'About 260 EUR',
         u'_2g_bands': u'GSM 850 / 900 / 1800 / 1900 ',
         u'_3_5mm_jack_': u'Yes',
         u'_3g_bands': u'HSDPA 850 / 1700(AWS) / 1900 / 2100 ',
-        u'_4g_bands': u'LTE band 2(1900), 4(1700/2100), 5(850), 12(700), 66(1700/2100)',
-        u'alert_types': u'Vibration; MP3, WAV ringtones',
-        u'announced': u'2017, May',
-        u'battery_c': u'Li-Ion 3080 mAh battery',
-        u'bluetooth': u'4.2, A2DP, LE',
-        u'body_c': u'- Stylus',
-        u'browser': u'HTML5',
-        u'card_slot': u'microSD, up to 256 GB',
-        u'chipset': u'Qualcomm MSM8940 Snapdragon 435',
-        u'colors': u'Titan',
-        u'cpu': u'Octa-core 1.4 GHz Cortex-A53',
-        u'dimensions': u'155.7 x 79.8 x 7.4 mm (6.13 x 3.14 x 0.29 in)',
-        u'edge': u'Yes',
-        u'features': u'1/3" sensor size, 1.12 \xc2\xb5m pixel size, geo-tagging, touch focus, face detection',
-        u'features_c': u'- MP4/H.264 player\r\n  - MP3/WAV/eAAC+ player\r\n  - Photo/video editor\r\n  - Document viewer',
-        u'gprs': u'Yes',
-        u'gps': u'Yes, with A-GPS',
-        u'gpu': u'Adreno 505',
-        u'internal': u'32 GB, 2 GB RAM',
-        u'java': u'No',
-        u'loudspeaker_': u'Yes',
-        u'messaging': u'SMS(threaded view), MMS, Email, Push Mail, IM',
-        u'multitouch': u'Yes',
-        u'nfc': u'Yes',
-        u'os': u'Android 7.0 (Nougat)',
-        u'price': u'About 260 EUR',
-        u'primary_': u'13 MP, autofocus, LED flash',
-        u'radio': u'To be confirmed',
-        u'resolution': u'1080 x 1920 pixels (~386 ppi pixel density)',
-        u'secondary': u'5 MP, LED flash',
-        u'sensors': u'Fingerprint (rear-mounted), accelerometer, gyro, proximity, compass',
-        u'sim': u'Nano-SIM',
-        u'size': u'5.7 inches (~72.1% screen-to-body ratio)',
-        u'speed': u'HSPA 42.2/5.76 Mbps, LTE-A (2CA) Cat6 300/50 Mbps',
-        u'stand_by': u'Up to 456 h (3G)',
-        u'status': u'Available. Released 2017, May',
-        u'talk_time': u'Up to 14 h (3G)',
-        u'technology': u'GSM / HSPA / LTE',
-        u'type': u'IPS LCD capacitive touchscreen, 16M colors',
-        u'usb': u'microUSB 2.0',
-        u'video': u'1080p@30fps',
-        u'weight': u'150 g (5.29 oz)',
-        u'wlan': u'Wi-Fi 802.11 b/g/n, WiFi Direct, hotspot'
-        }]
+        u'_4g_bands': u'LTE band 2(1900), 4(1700/2100), 5(850), 12(700), 66(1700/2100)'
+    }]
     return method1, method1_kwargs, method2, method2_kwargs, output
 
 
@@ -160,15 +162,12 @@ def expected_result3():
     method2, method2_kwargs = 'dataframe', {
         'columns':['Brand', 'DeviceName', 'alert_types', 'announced']
     }
-    rows, cols = (
-        [[
-            u'Huawei',
-            u'Huawei Honor 9',
-            u'Vibration; MP3, WAV ringtones',
-            u'2017, June']],
-        ['Brand', 'DeviceName', 'alert_types', 'announced']
-    )
-    output = pd.DataFrame(rows, columns=cols)
+    output = pd.DataFrame({
+        u"Brand": [u"Huawei"] * 2,
+        u"DeviceName": [u"Huawei Honor 9", u"Huawei Honor 9 Lite"],
+        u"alert_types": [u"Vibration; MP3, WAV ringtones"] * 2,
+        u"announced": [u"2017, June", u"2017, December"]
+    })
     return method1, method1_kwargs, method2, method2_kwargs, output
 
 

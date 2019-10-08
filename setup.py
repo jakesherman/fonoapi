@@ -29,8 +29,8 @@ __uri__ = 'https://github.com/jakesherman/fonoapi'
 __author__ = 'shakee93, jesusperiago, jakesherman'
 __email__ = 'jake@jakesherman.com'
 __license__ = 'MIT License'
-__copyright__ = '2016-2017 shakee93, jesusperiago, jakesherman'
-__version__ = '0.1.3'
+__copyright__ = '2016-2019 shakee93, jesusperiago, jakesherman'
+__version__ = '0.1.4'
 
 
 setup(

@@ -1,4 +1,4 @@
-from fonoapi import (
+from .fonoapi import (
     Devices,
     FonoAPI,
     InvalidAPITokenException,
